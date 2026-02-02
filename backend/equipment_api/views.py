@@ -14,6 +14,7 @@ from .serializers import (
 from .services.csv_processor import CSVProcessor
 from .services.analytics_service import AnalyticsService
 from .services.pdf_service import PDFService
+from .services.excel_service import ExcelExportService
 
 
 @api_view(['POST'])
@@ -166,3 +167,25 @@ class EquipmentDatasetViewSet(viewsets.ReadOnlyModelViewSet):
         analytics = AnalyticsService()
         chart_data = analytics.prepare_chart_data(dataset)
         return Response(chart_data)
+    
+    @action(detail=True, methods=['get'])
+    def export_excel(self, request, pk=None):
+        """Export dataset to Excel format"""
+        dataset = self.get_object()
+        
+        try:
+            excel_service = ExcelExportService()
+            excel_buffer = excel_service.generate_excel(dataset)
+            
+            response = HttpResponse(
+                excel_buffer.getvalue(),
+                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
+            response['Content-Disposition'] = f'attachment; filename=\"dataset_{dataset.id}.xlsx\"'
+            return response
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Error generating Excel: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

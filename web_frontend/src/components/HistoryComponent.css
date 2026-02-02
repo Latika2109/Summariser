@@ -1,0 +1,131 @@
+.history-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.history-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.history-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.history-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.card-header h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.upload-date {
+  color: #999;
+  font-size: 13px;
+}
+
+.card-stats {
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.stat-value {
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn,
+.pdf-btn,
+.excel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.pdf-btn {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.excel-btn {
+  background: white;
+  color: #10b981;
+  border: 2px solid #10b981;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pdf-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.excel-btn:hover {
+  background: #10b981;
+  color: white;
+}
+
+.loading,
+.error,
+.no-history {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+.error {
+  color: #c33;
+}
