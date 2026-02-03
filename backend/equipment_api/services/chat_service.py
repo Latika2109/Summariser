@@ -2,13 +2,15 @@ import os
 import requests
 import json
 from .analytics_service import AnalyticsService
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class ChatService:
     """Service to handle AI Chat interactions via OpenRouter"""
     
     def __init__(self):
-        self.api_key = os.getenv('OPENROUTER_API_KEY', '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') 
-        self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        self.api_key = os.getenv('OPENROUTER_API_KEY')        self.api_url = "https://openrouter.ai/api/v1/chat/completions"
         self.analytics = AnalyticsService()
 
     def get_response(self, user_message, dataset):

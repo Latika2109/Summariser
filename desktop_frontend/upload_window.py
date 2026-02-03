@@ -7,7 +7,8 @@ from charts_window import ChartWindow
 from email_dialog import EmailDialog
 from validation_dialog import ValidationDialog
 from alerts_view import AlertsView
-from chat_view import ChatWidget  # New Import
+from chat_view import ChatWidget  
+from history_view import HistoryView # New Import
 
 class UploadWindow(QMainWindow):
     """Main window with upload, table view, and chart buttons"""

@@ -35,10 +35,17 @@ python manage.py runserver
 
 Backend runs on `http://localhost:8000`
 
-**Optional - Create admin user:**
-```bash
 python manage.py createsuperuser
 # Access admin at http://localhost:8000/admin/
+```
+
+### Environment Variables
+Create a `.env` file in the `backend/` directory:
+
+```env
+OPENROUTER_API_KEY=your_key_here
+EMAIL_HOST_USER=your_email@gmail.com
+EMAIL_HOST_PASSWORD=your_app_password
 ```
 
 ---
