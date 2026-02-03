@@ -112,11 +112,11 @@ def upload_csv(request):
                 temperature=row['Temperature']
             )
         
-        # keep only last 5 datasets per user
+        # keep only last 20 datasets per user
         user_datasets = EquipmentDataset.objects.filter(user=request.user).order_by('-uploaded_at')
-        if user_datasets.count() > 5:
+        if user_datasets.count() > 20:
             # delete oldest datasets
-            datasets_to_delete = user_datasets[5:]
+            datasets_to_delete = user_datasets[20:]
             for old_dataset in datasets_to_delete:
                 old_dataset.delete()
         
@@ -187,5 +187,69 @@ class EquipmentDatasetViewSet(viewsets.ReadOnlyModelViewSet):
         except Exception as e:
             return Response(
                 {'error': f'Error generating Excel: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    @action(detail=True, methods=['get'])
+    def health_analysis(self, request, pk=None):
+        """Get health and efficiency analysis"""
+        dataset = self.get_object()
+        analytics = AnalyticsService()
+        analysis = analytics.analyze_health(dataset)
+        return Response(analysis)
+    @action(detail=True, methods=['get'])
+    def health_analysis(self, request, pk=None):
+        """Get health and efficiency analysis"""
+        dataset = self.get_object()
+        analytics = AnalyticsService()
+        analysis = analytics.analyze_health(dataset)
+        return Response(analysis)
+
+    @action(detail=False, methods=['post'])
+    def root_cause(self, request):
+        """Analyze root cause for a specific equipment record/alert"""
+        # Parse data { 'pressure': 20, 'temperature': 90 ... }
+        # Or simpler: receive alert data directly
+        data = request.data
+        
+        # Mocking a 'Record' object for the service
+        class MockRecord:
+            def __init__(self, data):
+                self.pressure = float(data.get('value', 0) if 'Pressure' in data.get('message', '') else data.get('pressure', 0))
+                # If value is string like "20.5" parsing needed. 
+                # Let's trust the frontend provides cleaned 'value' or 'pressure' fields
+                # Actually, better to receive explicit fields
+                self.pressure = float(data.get('pressure', 0))
+                self.temperature = float(data.get('temperature', 0))
+                self.flowrate = float(data.get('flowrate', 0))
+                
+        record = MockRecord(data)
+        
+        analytics = AnalyticsService()
+        causes = analytics.analyze_root_cause(record)
+        
+        return Response({'causes': causes})
+
+    @action(detail=True, methods=['post'])
+    def chat(self, request, pk=None):
+        """Chat with AI Agent about this dataset"""
+        dataset = self.get_object()
+        user_message = request.data.get('message', '')
+        
+        if not user_message:
+             return Response({'error': 'Message required'}, status=status.HTTP_400_BAD_REQUEST)
+             
+        try:
+            # Import here to avoid circular dependencies if any, or move to top
+            from .services.chat_service import ChatService
+            
+            chat_service = ChatService()
+            ai_response = chat_service.get_response(user_message, dataset)
+            
+            return Response({'response': ai_response})
+        except Exception as e:
+            import traceback
+            print(traceback.format_exc()) # Log to console for dev
+            return Response(
+                {'error': f'AI Service Error: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

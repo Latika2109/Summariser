@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import EmailComponent from './EmailComponent';
 import './ChartsComponent.css';
 
 // register chart.js components
@@ -87,21 +88,24 @@ function ChartsComponent({ dataset }) {
     <div className="charts-container">
       <h2>Data Visualization</h2>
 
+      {/* Email Component */}
+      <EmailComponent datasetId={dataset.id} datasetName={dataset.filename} />
+
       {/* summary stats */}
-      <div className="stats-grid">
-        <div className="stat-card">
+      <div className="chart-stats-grid">
+        <div className="chart-stat-card">
           <h3>Total Equipment</h3>
           <p className="stat-value">{dataset.total_equipment}</p>
         </div>
-        <div className="stat-card">
+        <div className="chart-stat-card">
           <h3>Avg Flowrate</h3>
           <p className="stat-value">{dataset.avg_flowrate?.toFixed(2)}</p>
         </div>
-        <div className="stat-card">
+        <div className="chart-stat-card">
           <h3>Avg Pressure</h3>
           <p className="stat-value">{dataset.avg_pressure?.toFixed(2)}</p>
         </div>
-        <div className="stat-card">
+        <div className="chart-stat-card">
           <h3>Avg Temperature</h3>
           <p className="stat-value">{dataset.avg_temperature?.toFixed(2)}</p>
         </div>

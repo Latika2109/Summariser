@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QFrame
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QFrame, QHBoxLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPalette, QColor
 
@@ -15,124 +15,164 @@ class LoginWindow(QDialog):
     def init_ui(self):
         """Setup UI elements"""
         self.setWindowTitle('Login - Equipment Visualizer')
-        self.setFixedSize(450, 350)
+        self.setFixedSize(450, 480)
         
-        # set window background
-        self.setStyleSheet('''
-            QDialog {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                    stop:0 #667eea, stop:1 #764ba2);
-            }
-        ''')
+        # Modern Frameless Window
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         
         layout = QVBoxLayout()
-        layout.setSpacing(15)
-        layout.setContentsMargins(40, 40, 40, 40)
+        layout.setContentsMargins(0, 0, 0, 0)
         
-        # create white card container
+        # Main White Card
         card = QFrame()
         card.setStyleSheet('''
             QFrame {
-                background-color: white;
-                border-radius: 15px;
-                padding: 30px;
+                background-color: #ffffff;
+                border-radius: 20px;
+                border: 1px solid #e5e7eb;
             }
         ''')
         card_layout = QVBoxLayout()
-        card_layout.setSpacing(15)
+        card_layout.setContentsMargins(40, 30, 40, 40)
+        card_layout.setSpacing(10)
         
-        # title
-        title = QLabel('🔬 Equipment Visualizer')
-        title.setAlignment(Qt.AlignCenter)
-        title_font = QFont()
-        title_font.setPointSize(20)
-        title_font.setBold(True)
-        title.setFont(title_font)
-        title.setStyleSheet('color: #333; margin-bottom: 10px;')
-        card_layout.addWidget(title)
-        
-        # subtitle
-        subtitle = QLabel('Desktop Application')
-        subtitle.setAlignment(Qt.AlignCenter)
-        subtitle.setStyleSheet('color: #666; font-size: 13px; margin-bottom: 20px;')
-        card_layout.addWidget(subtitle)
-        
-        # username field
-        username_label = QLabel('Username')
-        username_label.setStyleSheet('color: #333; font-weight: bold; font-size: 13px;')
-        card_layout.addWidget(username_label)
-        
-        self.username_input = QLineEdit()
-        self.username_input.setPlaceholderText('Enter your username')
-        self.username_input.setStyleSheet('''
-            QLineEdit {
-                padding: 12px;
-                border: 2px solid #e0e0e0;
-                border-radius: 8px;
-                font-size: 14px;
-                background-color: #f9f9f9;
+        # Close Button (Top Right)
+        close_btn = QPushButton('×')
+        close_btn.setFixedSize(30, 30)
+        close_btn.clicked.connect(self.close)
+        close_btn.setCursor(Qt.PointingHandCursor)
+        close_btn.setStyleSheet('''
+            QPushButton {
+                background: transparent;
+                color: #9ca3af;
+                border-radius: 15px;
+                font-size: 24px;
+                font-weight: bold;
+                border: none;
             }
-            QLineEdit:focus {
-                border: 2px solid #667eea;
-                background-color: white;
+            QPushButton:hover {
+                background: #f3f4f6;
+                color: #6b7280;
             }
         ''')
-        card_layout.addWidget(self.username_input)
         
-        # password field
-        password_label = QLabel('Password')
-        password_label.setStyleSheet('color: #333; font-weight: bold; font-size: 13px;')
-        card_layout.addWidget(password_label)
+        header_layout = QHBoxLayout()
+        header_layout.addStretch()
+        header_layout.addWidget(close_btn)
+        card_layout.addLayout(header_layout)
         
+        # Logo/Title Section
+        title = QLabel('Chemical\nVisualizer')
+        title.setAlignment(Qt.AlignCenter)
+        title.setFont(QFont('.AppleSystemUIFont', 24, QFont.Bold))
+        title.setStyleSheet('color: #1f2937; margin-bottom: 5px;')
+        card_layout.addWidget(title)
+        
+        subtitle = QLabel('Desktop Application')
+        subtitle.setAlignment(Qt.AlignCenter)
+        subtitle.setStyleSheet('color: #6b7280; font-size: 14px; margin-bottom: 30px;')
+        card_layout.addWidget(subtitle)
+        
+        # Form Container
+        form_widget = QWidget()
+        form_layout = QVBoxLayout()
+        form_layout.setSpacing(20)
+        form_layout.setContentsMargins(0, 0, 0, 0)
+        
+        # Username
+        self.username_input = QLineEdit()
+        self.username_input.setPlaceholderText('Username')
+        self.username_input.setStyleSheet('''
+            QLineEdit {
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+                font-size: 14px;
+                background-color: #f9fafb;
+                color: #1f2937;
+            }
+            QLineEdit::placeholder {
+                color: #9ca3af;
+            }
+            QLineEdit:focus {
+                background-color: #ffffff;
+                border: 1px solid #667eea;
+            }
+        ''')
+        form_layout.addWidget(self.username_input)
+        
+        # Password
         self.password_input = QLineEdit()
-        self.password_input.setPlaceholderText('Enter your password')
+        self.password_input.setPlaceholderText('Password')
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.setStyleSheet('''
             QLineEdit {
-                padding: 12px;
-                border: 2px solid #e0e0e0;
-                border-radius: 8px;
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
                 font-size: 14px;
-                background-color: #f9f9f9;
+                background-color: #f9fafb;
+                color: #1f2937;
+            }
+            QLineEdit::placeholder {
+                color: #9ca3af;
             }
             QLineEdit:focus {
-                border: 2px solid #667eea;
-                background-color: white;
+                background-color: #ffffff;
+                border: 1px solid #667eea;
             }
         ''')
-        card_layout.addWidget(self.password_input)
+        form_layout.addWidget(self.password_input)
         
-        # login button
-        login_btn = QPushButton('Login')
+        form_widget.setLayout(form_layout)
+        card_layout.addWidget(form_widget)
+        
+        # Login Button
+        login_btn = QPushButton('Sign In')
         login_btn.clicked.connect(self.handle_login)
         login_btn.setCursor(Qt.PointingHandCursor)
         login_btn.setStyleSheet('''
             QPushButton {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #667eea, stop:1 #764ba2);
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #667eea, stop:1 #764ba2);
                 color: white;
-                padding: 14px;
+                padding: 15px;
                 border: none;
-                border-radius: 8px;
+                border-radius: 10px;
                 font-weight: bold;
-                font-size: 15px;
-                margin-top: 10px;
+                font-size: 16px;
+                margin-top: 20px;
             }
             QPushButton:hover {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #5568d3, stop:1 #653a8b);
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #5b6ede, stop:1 #674291);
             }
             QPushButton:pressed {
-                padding-top: 16px;
-                padding-bottom: 12px;
+                padding-top: 17px;
+                padding-bottom: 13px;
             }
         ''')
         card_layout.addWidget(login_btn)
         
+        card_layout.addStretch()
         card.setLayout(card_layout)
         layout.addWidget(card)
         
         self.setLayout(layout)
+        
+        # Dragging logic
+        self.old_pos = None
+
+    def mousePressEvent(self, event):
+        self.old_pos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        if self.old_pos:
+            delta = event.globalPos() - self.old_pos
+            self.move(self.x() + delta.x(), self.y() + delta.y())
+            self.old_pos = event.globalPos()
+
+    def mouseReleaseEvent(self, event):
+        self.old_pos = None
     
     def handle_login(self):
         """Handle login button click"""

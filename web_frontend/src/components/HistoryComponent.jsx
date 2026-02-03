@@ -66,7 +66,7 @@ function HistoryComponent({ onSelectDataset }) {
 
   return (
     <div className="history-container">
-      <h2>Upload History (Last 5)</h2>
+      <h2>Upload History</h2>
 
       {datasets.length === 0 ? (
         <p className="no-history">No uploads yet</p>

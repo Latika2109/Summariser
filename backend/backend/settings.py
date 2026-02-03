@@ -139,10 +139,11 @@ REST_FRAMEWORK = {
 }
 
 # CORS settings - allow frontend to access API
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React dev server
-    "http://127.0.0.1:3000",
-]
+CORS_ALLOW_ALL_ORIGINS = True  # Enable this for mobile/network testing
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+# ]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -150,3 +151,11 @@ CORS_ALLOW_CREDENTIALS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'l8514802@gmail.com'
+EMAIL_HOST_PASSWORD = 'uvqwratjeyroefkw'
+DEFAULT_FROM_EMAIL = 'l8514802@gmail.com'

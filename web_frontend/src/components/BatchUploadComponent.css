@@ -1,0 +1,130 @@
+.batch-upload-container {
+  padding: 20px;
+}
+
+.drop-zone {
+  border: 3px dashed #667eea;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  margin: 20px 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.drop-zone:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+}
+
+.drop-zone input[type="file"] {
+  display: none;
+}
+
+.file-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.file-button:hover {
+  opacity: 0.9;
+}
+
+.file-list {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.file-list li {
+  padding: 10px;
+  background: #f9fafb;
+  margin: 5px 0;
+  border-radius: 6px;
+}
+
+.file-list button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.file-list button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-results {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-summary {
+  display: flex;
+  gap: 20px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.results-summary .success {
+  color: #10b981;
+}
+
+.results-summary .failed {
+  color: #f5576c;
+}
+
+.results-list {
+  margin-top: 15px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+
+.result-item.success {
+  background: #f0fdf4;
+  border-left: 4px solid #10b981;
+}
+
+.result-item.error {
+  background: #fff5f5;
+  border-left: 4px solid #f5576c;
+}
+
+.result-item .status {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.result-item .error-msg {
+  color: #f5576c;
+  font-size: 14px;
+}
