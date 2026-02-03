@@ -47,7 +47,7 @@ python main.py
 3. Upload a dataset
 4. Go to "Charts" tab
 5. Find "Email Report" section at top
-6. Enter email: `l8514802@gmail.com`
+6. Enter email: `your-email@gmail.com`
 7. Click "Send Report"
 8. Check inbox for PDF report
 
@@ -113,9 +113,9 @@ python main.py
 
 ## Current Status
 
-✅ Backend: Running at http://localhost:8000/
-✅ Web Frontend: Running at http://localhost:3000/
-✅ Email: Configured with Gmail SMTP
-✅ All 13 features implemented
+Backend: Running at http://localhost:8000/
+Web Frontend: Running at http://localhost:3000/
+Email: Configured with Gmail SMTP
+
 
 **Ready to test!**
